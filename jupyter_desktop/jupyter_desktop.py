@@ -6,7 +6,7 @@ def setup_desktop():
     return {
         'command': [
             'websockify', '-v',
-            '--web', VNC_APPLICATION_DIR + '/noVNC-1.1.0',
+            '--web', VNC_APPLICATION_DIR + '/noVNC',
             '--heartbeat', '30',
             '5901',
             '--unix-target', VNC_APPLICATION_DIR + '/socket',
