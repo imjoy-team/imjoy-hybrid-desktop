@@ -46,10 +46,10 @@ rm fiji-nojre.zip
 mv Fiji.app/jars/FilamentDetector-1.0.0.jar Fiji.app/jars/FilamentDetector-1.0.0.jar.disabled
 
 # Add libraries
-Fiji.app/ImageJ-linux64 --update add-update-site Noise2Void https://sites.imagej.net/CSBDeep/
-Fiji.app/ImageJ-linux64 --update add-update-site DeepImageJ https://sites.imagej.net/DeepImageJ/
-Fiji.app/ImageJ-linux64 --update add-update-site MoBIE https://sites.imagej.net/MoBIE/
-Fiji.app/ImageJ-linux64 --update update
+# Fiji.app/ImageJ-linux64 --update add-update-site Noise2Void https://sites.imagej.net/CSBDeep/
+# Fiji.app/ImageJ-linux64 --update add-update-site DeepImageJ https://sites.imagej.net/DeepImageJ/
+# Fiji.app/ImageJ-linux64 --update add-update-site MoBIE https://sites.imagej.net/MoBIE/
+# Fiji.app/ImageJ-linux64 --update update
 
 pushd Fiji.app/plugins
 wget -q $OMERO_INSIGHT_URL_BASE/omero_ij-$OMERO_INSIGHT_VERSION-all.jar
