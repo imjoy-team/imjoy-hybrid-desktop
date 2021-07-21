@@ -6,4 +6,8 @@ export XFCE_PANEL_MIGRATE_DEFAULT=1
 export DISPLAY=:1.0
 ln -s "$CONDA_DIR/vnc/Desktop"
 
+# Start ImJoy elFinder
+export BINDER_BASE_URL=`jupyter notebook list --json | python3 -c 'import json; import sys; print(json.load(sys.stdin)["base_url"])'`
+imjoy-elfinder --root-dir=${HOME} --port=8766 --base-url=${BINDER_BASE_URL}proxy/8766 &
+
 exec "$@"

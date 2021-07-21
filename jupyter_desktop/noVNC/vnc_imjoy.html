@@ -72,7 +72,27 @@
     </script>
     <!-- actual script modules -->
     <script type="module" crossorigin="anonymous" src="app/ui.js"></script>
+    <script crossorigin="anonymous" src="imjoy-app.js"></script>
     <!-- end scripts -->
+    <style>
+        .dropdown:hover .dropdown-content{
+            position: fixed;
+        }
+        .dropdown-btn {
+            padding: 0!important;
+        }
+        .dropdown-btn>img {
+            padding-top: 2px;
+            width: 25px;
+        }
+        .window {
+            min-height: 100px;
+            min-width: 100px;
+        }
+        .imjoy-windows>img{
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -93,7 +113,10 @@
 
             <div class="noVNC_scroll">
 
-            <h1 class="noVNC_logo" translate="no"><span>no</span><br>VNC</h1>
+<!--             <h1 class="noVNC_logo" translate="no"><span>no</span><br>VNC</h1> -->
+            <div style="width:25px;height:25px;min-height:25px!important" src="https://imjoy.io/static/img/imjoy-icon.png"
+                id="imjoy-menu-container" class="noVNC_button"
+                title="ImJoy Plugins"> </div>
 
             <!-- Drag/Pan the viewport -->
             <input type="image" alt="viewport drag" src="app/images/drag.svg"
@@ -266,7 +289,7 @@
             </div>
 
             <!-- Connection Controls -->
-            <input type="image" alt="Disconnect" src="app/images/disconnect.svg"
+            <input type="image" alt="Disconnect" style="display: none;" src="app/images/disconnect.svg"
                 id="noVNC_disconnect_button" class="noVNC_button"
                 title="Disconnect">
 
@@ -328,5 +351,6 @@
         <source src="app/sounds/bell.oga" type="audio/ogg">
         <source src="app/sounds/bell.mp3" type="audio/mpeg">
     </audio>
+    <div id="imjoy-window-container"></div>
  </body>
 </html>
