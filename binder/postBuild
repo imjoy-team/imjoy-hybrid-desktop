@@ -15,10 +15,14 @@ curl -sSfL https://github.com/novnc/noVNC/archive/v1.1.0.tar.gz | tar -zxf -
 # and also to override localstorage which may store an incorrect path from a
 # different session
 # Also resize server instead of scaling client
-sed -i.bak \
-    -e "s%\('path', 'websockify'\)%'path', window.location.pathname.replace(/[^/]*$/, '').substring(1) + 'websockify'); console.log('websockify path:' + path%" \
-    -re "s%rfb.scaleViewport = .+%rfb.resizeSession = readQueryVariable('resize', true);%" \
-    noVNC-1.1.0/vnc_lite.html
+
+# sed -i.bak \
+#     -e "s%\('path', 'websockify'\)%'path', window.location.pathname.replace(/[^/]*$/, '').substring(1) + 'websockify'); console.log('websockify path:' + path%" \
+#     -re "s%rfb.scaleViewport = .+%rfb.resizeSession = readQueryVariable('resize', true);%" \
+#     noVNC-1.1.0/vnc_lite.html
+
+# copy the patched vnc files
+cp $REPO_DIR/jupyter_desktop/vnc/* noVNC-1.1.0/
 
 # Install tigervnc
 curl -sSfL 'https://sourceforge.net/projects/tigervnc/files/stable/1.9.0/tigervnc-1.9.0.x86_64.tar.gz' | tar -zxf - --strip=2
