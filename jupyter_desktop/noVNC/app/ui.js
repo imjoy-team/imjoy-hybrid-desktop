@@ -147,7 +147,7 @@ const UI = {
         UI.initSetting('port', port);
         UI.initSetting('encrypt', (window.location.protocol === "https:"));
         UI.initSetting('view_clip', false);
-        UI.initSetting('resize', 'off');
+        UI.initSetting('resize', 'remote'); // IMJOY PATCH: make it as remote by default
         UI.initSetting('shared', true);
         UI.initSetting('view_only', false);
         UI.initSetting('show_dot', false);
@@ -705,15 +705,10 @@ const UI = {
     // Initial page load read/initialization of settings
     initSetting(name, defVal) {
         let val
-        if(name==='websockify'){
-            val = window.location.pathname.replace(/[^/]*$/, '').substring(1) + 'websockify';
-        }
-        else{
-            // Check Query string followed by cookie
-            val = WebUtil.getConfigVar(name);
-            if (val === null) {
-                val = WebUtil.readSetting(name, defVal);
-            }
+        // Check Query string followed by cookie
+        val = WebUtil.getConfigVar(name);
+        if (val === null) {
+            val = WebUtil.readSetting(name, defVal);
         }
         WebUtil.setSetting(name, val);
         UI.updateSetting(name);
@@ -773,6 +768,13 @@ const UI = {
 
     // Read form control compatible setting from cookie
     getSetting(name) {
+        // IMJOY PATCH: make sure we don't read them from localStorage
+        if(name === 'path'){
+            return window.location.pathname.replace(/[^/]*$/, '').substring(1) + 'websockify';
+        }
+        if(name === 'resize'){
+            return 'remote'
+        }
         const ctrl = document.getElementById('noVNC_setting_' + name);
         let val = WebUtil.readSetting(name);
         if (typeof val !== 'undefined' && val !== null && ctrl.type === 'checkbox') {
@@ -1027,8 +1029,8 @@ const UI = {
         UI.rfb.addEventListener("bell", UI.bell);
         UI.rfb.addEventListener("desktopname", UI.updateDesktopName);
         UI.rfb.clipViewport = UI.getSetting('view_clip');
-        UI.rfb.scaleViewport = false; //UI.getSetting('resize') === 'scale';
-        UI.rfb.resizeSession = true; //UI.getSetting('resize') === 'remote';
+        UI.rfb.scaleViewport = UI.getSetting('resize') === 'scale';
+        UI.rfb.resizeSession = UI.getSetting('resize') === 'remote';
 
         UI.updateViewOnly(); // requires UI.rfb
     },
