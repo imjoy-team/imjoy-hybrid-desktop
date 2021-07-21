@@ -1,5 +1,5 @@
 # User guide for Fiji and OMERO
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/oeway/omero-guide-fiji/test?filepath=notebooks)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/oeway/omero-guide-fiji/test?urlpath=desktop)
 
 [![Documentation Status](https://readthedocs.org/projects/omero-guide-fiji/badge/?version=latest)](https://omero-guides.readthedocs.io/en/latest/fiji/docs/index.html)
 
