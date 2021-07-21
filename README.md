@@ -1,5 +1,5 @@
 # User guide for Fiji and OMERO
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ome/omero-guide-fiji/master?filepath=notebooks)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/oeway/omero-guide-fiji/test?filepath=notebooks)
 
 [![Documentation Status](https://readthedocs.org/projects/omero-guide-fiji/badge/?version=latest)](https://omero-guides.readthedocs.io/en/latest/fiji/docs/index.html)
 
@@ -13,7 +13,7 @@ This guide demonstrates how to analyze data stored in OMERO in Fiji.
 This can be done using the User Interface or via the scripting facility in Fiji.
 
 
-To run the notebooks, you can either [run on mybinder.org](https://mybinder.org/v2/gh/ome/omero-guide-fiji/master?filepath=notebooks) or build locally with [repo2docker](https://repo2docker.readthedocs.io/).
+To run the notebooks, you can either [run on mybinder.org](https://mybinder.org/v2/gh/oeway/omero-guide-fiji/test?filepath=notebooks) or build locally with [repo2docker](https://repo2docker.readthedocs.io/).
 
 To build locally:
 
