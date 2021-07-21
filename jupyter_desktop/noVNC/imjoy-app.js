@@ -27,7 +27,7 @@ loadImJoyBasicApp({
     app.addMenuItem({
         label: "📁 elFinder",
         callback() {
-            api.createWindow({src: baseURL+'proxy/8765', name: 'elFinder', passive: true})
+            api.createWindow({src: baseURL+'elfinder', name: 'elFinder', passive: true})
         },
     });
     
