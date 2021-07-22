@@ -25,6 +25,6 @@ def setup_desktop():
         'timeout': 30,
         'mappath': {'/': '/vnc_imjoy.html'},
         'launcher_entry': {
-            "title": "ImJoy Binder Desktop",
+            "title": "ImJoy Hybrid Desktop",
         },
     }

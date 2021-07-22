@@ -43,6 +43,16 @@ loadImJoyBasicApp({
             vncContainer.style.pointerEvents = 'all';
         }
     })
+    app.imjoy.event_bus.on("register", (ctx)=>{
+        if(ctx.config.type==='app-launcher'){
+            
+        }
+    })
+    app.imjoy.event_bus.on("unregister", (ctx)=>{
+        if(ctx.config.type==='app-launcher'){
+            
+        }
+    })
     // Setting up the jupyter engine
     let serverConfig;
     try{

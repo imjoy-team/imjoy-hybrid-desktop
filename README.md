@@ -1,3 +1,3 @@
-# ImJoy Binder Desktop
+# ImJoy Hybrid Desktop
 
-More details in the [main](https://github.com/imjoy-team/imjoy-binder-desktop) branch.
+More details in the [main](https://github.com/imjoy-team/imjoy-hybrid-desktop) branch.
