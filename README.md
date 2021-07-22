@@ -31,6 +31,18 @@ repo2docker .
 ## Customization
 By passing an URL as query `plugin=`, you can pass an ImJoy plugin to prepare your desktop. [Here](https://gist.github.com/oeway/d3430d88424b2397537847a709d81db1) is an example for registering a `app-launcher` service for staring up Fiji (via `pyimagej`). 
 
+You can construct an URL which will bring the user directly to the customized desktop. Here are the steps:
+ 1. If you use Gist or Github to store your ImJoy plugin file, make sure you click the "raw" button to get the raw URL. For example, it should be something like: `https://gist.githubusercontent.com/oeway/d3430d88424b2397537847a709d81db1/raw/FijiDesktopDemo.imjoy.html`
+ 2. Now add the raw link right after `https://mybinder.org/v2/gh/imjoy-team/imjoy-hybrid-desktop/binder?urlpath=desktop?plugin=`. For example, the final link will looks like:
+    ```
+    https://mybinder.org/v2/gh/imjoy-team/imjoy-hybrid-desktop/binder?urlpath=desktop?plugin=https://gist.githubusercontent.com/oeway/d3430d88424b2397537847a709d81db1/raw/FijiDesktopDemo.imjoy.html
+    ```
+ 3. If you want to place the link in a markdown file, you can use a Binder badge: `[![Binder](https://mybinder.org/badge_logo.svg)]()`. For example, here is a budge with the link in markdown:
+    ```markdown
+    [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/imjoy-team/imjoy-hybrid-desktop/binder?urlpath=desktop?plugin=https://gist.githubusercontent.com/oeway/d3430d88424b2397537847a709d81db1/raw/FijiDesktopDemo.imjoy.html)
+    ```
+    It will be rendered as [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/imjoy-team/imjoy-hybrid-desktop/binder?urlpath=desktop?plugin=https://gist.githubusercontent.com/oeway/d3430d88424b2397537847a709d81db1/raw/FijiDesktopDemo.imjoy.html).
+
 ## Acknoledgements
 
 ImJoy Hybrid Desktop is built on top of [omero-guide-fiji](https://github.com/ome/omero-guide-fiji) made by the [Open Microscopy Environment team](https://github.com/ome).
