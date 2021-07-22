@@ -1,0 +1,46 @@
+﻿<docs lang="markdown">
+  [TODO: write documentation for this plugin.]
+  </docs>
+  
+  <config lang="json">
+  {
+    "name": "FijiDesktopDemo",
+    "type": "native-python",
+    "version": "0.1.0",
+    "description": "[TODO: describe this plugin with one sentence.]",
+    "tags": [],
+    "ui": "",
+    "cover": "",
+    "inputs": null,
+    "outputs": null,
+    "flags": [],
+    "icon": "extension",
+    "api_version": "0.1.8",
+    "env": "",
+    "permissions": [],
+    "requirements": [],
+    "dependencies": []
+  }
+  </config>
+  
+  <script lang="python">
+  from imjoy import api
+  import imagej
+  
+  
+  class ImJoyPlugin():
+      async def setup(self):
+          await api.registerService(name="Start Fiji", type="app-launcher", icon="play_arrow", run=self.start_fiji)
+  
+      async def start_fiji(self):
+          await api.showLoader(True)
+          api.showMessage("Launching Fiji...")
+          ij = imagej.init('/srv/conda/app/Fiji.app', headless=False)
+          ij.ui().showUI()
+          await api.showMessage("Fiji Started Successfully!")
+          await api.showLoader(False)
+          await api.connectDesktop()
+          
+  
+  api.export(ImJoyPlugin())
+  </script>
