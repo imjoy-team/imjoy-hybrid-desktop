@@ -1,7 +1,7 @@
-# ImJoy Remote Desktop
+# ImJoy Binder Desktop
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/oeway/omero-guide-fiji/imjoy?urlpath=desktop)
-[![Actions Status](https://github.com/imjoy-team/imjoy-remote-desktop/workflows/repo2docker/badge.svg)](https://github.com/imjoy-team/imjoy-remote-desktop/actions)
-[![Actions Status](https://github.com/imjoy-team/imjoy-remote-desktop/workflows/sphinx/badge.svg)](https://github.com/imjoy-team/imjoy-remote-desktop/actions)
+[![Actions Status](https://github.com/imjoy-team/imjoy-binder-desktop/workflows/repo2docker/badge.svg)](https://github.com/imjoy-team/imjoy-binder-desktop/actions)
+[![Actions Status](https://github.com/imjoy-team/imjoy-binder-desktop/workflows/sphinx/badge.svg)](https://github.com/imjoy-team/imjoy-binder-desktop/actions)
 
 
 An ImJoy powered fully customizable remote desktop environment for running Fiji and other desktop software.
@@ -31,4 +31,4 @@ repo2docker .
 
 ## Acknoledgements
 
-ImJoy Remote Desktop is built on top of [omero-guide-fiji](https://github.com/ome/omero-guide-fiji) made by the [Open Microscopy Environment team](https://github.com/ome).
+ImJoy Binder Desktop is built on top of [omero-guide-fiji](https://github.com/ome/omero-guide-fiji) made by the [Open Microscopy Environment team](https://github.com/ome).
