@@ -10,7 +10,7 @@ SCRIPT_PATH=`dirname "$0"`
 bash ${SCRIPT_PATH}/dumpServerConfig.sh & 
 
 ARGS="$@"
-if [[ $ARGS == *"--NotebookApp.allow_origin"* ]]; then
+if [[ "$ARGS" == *"NotebookApp.allow_origin"* ]]; then
 exec "$@" # for running with Binder
 else
 exec "$@" --NotebookApp.allow_origin="*" # for running with local repo2docker
