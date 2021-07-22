@@ -1,6 +1,6 @@
-# ImJoy Binder Desktop
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/imjoy-team/imjoy-binder-desktop/binder?urlpath=desktop)
-[![Actions Status](https://github.com/imjoy-team/imjoy-binder-desktop/workflows/repo2docker/badge.svg)](https://github.com/imjoy-team/imjoy-binder-desktop/actions)
+# ImJoy Hybrid Desktop
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/imjoy-team/imjoy-hybrid-desktop/binder?urlpath=desktop)
+[![Actions Status](https://github.com/imjoy-team/imjoy-hybrid-desktop/workflows/repo2docker/badge.svg)](https://github.com/imjoy-team/imjoy-hybrid-desktop/actions)
 
 
 An ImJoy powered fully customizable remote desktop environment for running Fiji and other desktop software.
@@ -11,7 +11,7 @@ With the ImJoy integration, developers can use ImJoy plugins to customize the re
 
 
 ## Usage
-To start the remote desktop environment, you can either [run on mybinder.org](https://mybinder.org/v2/gh/imjoy-team/imjoy-binder-desktop/binder?urlpath=desktop) or build locally with [repo2docker](https://repo2docker.readthedocs.io/).
+To start the remote desktop environment, you can either [run on mybinder.org](https://mybinder.org/v2/gh/imjoy-team/imjoy-hybrid-desktop/binder?urlpath=desktop) or build locally with [repo2docker](https://repo2docker.readthedocs.io/).
 
 To build locally:
 
@@ -30,4 +30,4 @@ repo2docker .
 
 ## Acknoledgements
 
-ImJoy Binder Desktop is built on top of [omero-guide-fiji](https://github.com/ome/omero-guide-fiji) made by the [Open Microscopy Environment team](https://github.com/ome).
+ImJoy Hybrid Desktop is built on top of [omero-guide-fiji](https://github.com/ome/omero-guide-fiji) made by the [Open Microscopy Environment team](https://github.com/ome).
