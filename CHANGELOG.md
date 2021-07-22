@@ -1,3 +1,9 @@
+0.3.0 (July 2021)
+----------------
+- Use full version of noVNC and add support for ImJoy
+
+----------------
+
 0.2.1 (May 2021)
 ----------------
 
