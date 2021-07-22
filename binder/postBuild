@@ -20,7 +20,7 @@ rm fiji-nojre.zip
 mv Fiji.app/jars/FilamentDetector-1.0.0.jar Fiji.app/jars/FilamentDetector-1.0.0.jar.disabled
 
 # # Update Fiji
-Fiji.app/ImageJ-linux64 --update update
+# Fiji.app/ImageJ-linux64 --update update
 
 pushd Fiji.app/plugins
 wget -q $OMERO_INSIGHT_URL_BASE/omero_ij-$OMERO_INSIGHT_VERSION-all.jar
