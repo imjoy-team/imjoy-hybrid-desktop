@@ -1,7 +1,6 @@
 # ImJoy Binder Desktop
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/oeway/omero-guide-fiji/imjoy?urlpath=desktop)
 [![Actions Status](https://github.com/imjoy-team/imjoy-binder-desktop/workflows/repo2docker/badge.svg)](https://github.com/imjoy-team/imjoy-binder-desktop/actions)
-[![Actions Status](https://github.com/imjoy-team/imjoy-binder-desktop/workflows/sphinx/badge.svg)](https://github.com/imjoy-team/imjoy-binder-desktop/actions)
 
 
 An ImJoy powered fully customizable remote desktop environment for running Fiji and other desktop software.
