@@ -37,7 +37,7 @@ You can construct an URL which will bring the user directly to the customized de
     ```
     https://mybinder.org/v2/gh/imjoy-team/imjoy-hybrid-desktop/binder?urlpath=desktop?plugin=https://gist.githubusercontent.com/oeway/d3430d88424b2397537847a709d81db1/raw/FijiDesktopDemo.imjoy.html
     ```
- 3. If you want to place the link in a markdown file, you can use a Binder badge: `[![Binder](https://mybinder.org/badge_logo.svg)]()`. For example, here is a budge with the link in markdown:
+ 3. If you want to place the link in a markdown file, you can use a Binder badge: `[![Binder](https://mybinder.org/badge_logo.svg)]()`. For example, here is a badge with the link in markdown:
     ```markdown
     [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/imjoy-team/imjoy-hybrid-desktop/binder?urlpath=desktop?plugin=https://gist.githubusercontent.com/oeway/d3430d88424b2397537847a709d81db1/raw/FijiDesktopDemo.imjoy.html)
     ```
