@@ -35,23 +35,14 @@ loadImJoyBasicApp({
 
     // make sure we can drag/resize the imjoy windows
     const vncContainer = document.getElementById('noVNC_container');
-    window.addEventListener('mousedown', function(event){
-        if(vncContainer.contains(event.target)){
-            vncContainer.style.pointerEvents = 'all';
+    app.$on("window-size-pos-changing", (changing)=>{
+        if(changing){
+            vncContainer.style.pointerEvents = 'none';
         }
         else{
-            vncContainer.style.pointerEvents = 'none';
+            vncContainer.style.pointerEvents = 'all';
         }
     })
-    window.addEventListener('mouseenter', function(event){
-        if(!vncContainer.contains(event.target)){
-            vncContainer.style.pointerEvents = 'none';
-        }
-    })
-    window.addEventListener('mouseup', function(event){
-        document.getElementById('noVNC_container').style.pointerEvents = 'all';
-    })
-    
     // Setting up the jupyter engine
     let serverConfig;
     try{
