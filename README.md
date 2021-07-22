@@ -28,6 +28,9 @@ cd omero-guide-fiji
 repo2docker .
 ```
 
+## Customization
+By passing an URL as query `plugin=`, you can pass an ImJoy plugin to prepare your desktop. [Here](https://gist.github.com/oeway/d3430d88424b2397537847a709d81db1) is an example for registering a `app-launcher` service for staring up Fiji (via `pyimagej`). 
+
 ## Acknoledgements
 
 ImJoy Hybrid Desktop is built on top of [omero-guide-fiji](https://github.com/ome/omero-guide-fiji) made by the [Open Microscopy Environment team](https://github.com/ome).
