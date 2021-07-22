@@ -1,46 +1,67 @@
 ﻿<docs lang="markdown">
-  [TODO: write documentation for this plugin.]
-  </docs>
-  
-  <config lang="json">
-  {
-    "name": "FijiDesktopDemo",
-    "type": "native-python",
-    "version": "0.1.0",
-    "description": "[TODO: describe this plugin with one sentence.]",
-    "tags": [],
-    "ui": "",
-    "cover": "",
-    "inputs": null,
-    "outputs": null,
-    "flags": [],
-    "icon": "extension",
-    "api_version": "0.1.8",
-    "env": "",
-    "permissions": [],
-    "requirements": [],
-    "dependencies": []
-  }
-  </config>
-  
-  <script lang="python">
-  from imjoy import api
-  import imagej
-  
-  
-  class ImJoyPlugin():
-      async def setup(self):
-          await api.registerService(name="Start Fiji", type="app-launcher", icon="play_arrow", run=self.start_fiji)
-  
-      async def start_fiji(self):
-          await api.showLoader(True)
-          api.showMessage("Launching Fiji...")
-          ij = imagej.init('/srv/conda/app/Fiji.app', headless=False)
-          ij.ui().showUI()
-          await api.showMessage("Fiji Started Successfully!")
-          await api.showLoader(False)
-          await api.connectDesktop()
-          
-  
-  api.export(ImJoyPlugin())
-  </script>
+[TODO: write documentation for this plugin.]
+</docs>
+
+<config lang="json">
+{
+  "name": "FijiDesktopDemo",
+  "type": "native-python",
+  "version": "0.1.0",
+  "description": "[TODO: describe this plugin with one sentence.]",
+  "tags": [],
+  "ui": "",
+  "cover": "",
+  "inputs": null,
+  "outputs": null,
+  "flags": [],
+  "icon": "extension",
+  "api_version": "0.1.8",
+  "env": "",
+  "permissions": [],
+  "requirements": [],
+  "dependencies": []
+}
+</config>
+
+<script lang="python">
+from imjoy import api
+import imagej
+
+
+class ImJoyPlugin():
+   async def setup(self):
+         # Here we register an app launcher which will show up in the startup screen as an icon
+         # For the icons, you can choose one from https://fonts.google.com/icons?selected=Material+Icons
+         await api.registerService(name="Start Fiji", type="app-launcher", icon="play_arrow", run=self.start_fiji)
+
+   async def start_fiji(self):
+         await api.showLoader(True)
+         await api.showMessage("Launching Fiji...")
+         # now start Fiji
+         ij = imagej.init('/srv/conda/app/Fiji.app', headless=False)
+         ij.ui().showUI()
+         await api.showMessage("Fiji Started Successfully!")
+
+         # run macro
+         macro = """
+         #@ String name
+         #@ int age
+         #@ String city
+         #@output Object greeting
+         greeting = "Hello " + name + ". You are " + age + " years old, and live in " + city + "."
+         """
+         args = {
+            'name': 'Chuckles',
+            'age': 13,
+            'city': 'Nowhere'
+         }
+         result = ij.py.run_macro(macro, args)
+         await api.showMessage(str(result.getOutput('greeting')))  
+
+         await api.showLoader(False)
+         # connect the VNC client to the desktop
+         await api.connectDesktop()
+         
+
+api.export(ImJoyPlugin())
+</script>

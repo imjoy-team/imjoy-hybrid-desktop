@@ -29,9 +29,55 @@ repo2docker .
 ```
 
 ## Customization
-By passing an URL as query `plugin=`, you can pass an ImJoy plugin to prepare your desktop. [Here](https://github.com/imjoy-team/imjoy-hybrid-desktop/blob/main/examples/FijiDesktopDemo.imjoy.html) is an example for registering a `app-launcher` service for staring up Fiji (via `pyimagej`). 
+By passing an URL as query `plugin=`, you can pass an ImJoy plugin to prepare your desktop. [Here](https://github.com/imjoy-team/imjoy-hybrid-desktop/blob/main/examples/FijiDesktopDemo.imjoy.html) is an example for registering a `app-launcher` service for staring up Fiji (via `pyimagej`).
 
-You can construct an URL which will bring the user directly to the customized desktop. Here are the steps:
+In the plugin, it contains the following Python script:
+```python
+from imjoy import api
+import imagej
+
+
+class ImJoyPlugin():
+   async def setup(self):
+         # Here we register an app launcher which will show up in the startup screen as an icon
+         # For the icons, you can choose one from https://fonts.google.com/icons?selected=Material+Icons
+         await api.registerService(name="Start Fiji", type="app-launcher", icon="play_arrow", run=self.start_fiji)
+
+   async def start_fiji(self):
+         await api.showLoader(True)
+         await api.showMessage("Launching Fiji...")
+         # now start Fiji
+         ij = imagej.init('/srv/conda/app/Fiji.app', headless=False)
+         ij.ui().showUI()
+         await api.showMessage("Fiji Started Successfully!")
+
+         # run macro
+         macro = """
+         #@ String name
+         #@ int age
+         #@ String city
+         #@output Object greeting
+         greeting = "Hello " + name + ". You are " + age + " years old, and live in " + city + "."
+         """
+         args = {
+            'name': 'Chuckles',
+            'age': 13,
+            'city': 'Nowhere'
+         }
+         result = ij.py.run_macro(macro, args)
+         await api.showMessage(str(result.getOutput('greeting')))  
+
+         await api.showLoader(False)
+         # connect the VNC client to the desktop
+         await api.connectDesktop()
+         
+
+api.export(ImJoyPlugin())
+```
+For Fiji, further customization can be done by changing the macro or calling pyimagej functions.
+For more detailed usage about pyimagej, please go here: https://github.com/imagej/pyimagej/blob/master/doc/Usage.md
+
+You can store the plugin code in any other repo and construct an URL which will bring the user directly to the customized desktop. Here are the steps:
  1. If you use Gist or Github to store your ImJoy plugin file, make sure you click the "raw" button to get the raw URL. For example, it should be something like: `https://raw.githubusercontent.com/imjoy-team/imjoy-hybrid-desktop/main/examples/FijiDesktopDemo.imjoy.html`
  2. Now add the raw link right after `https://mybinder.org/v2/gh/imjoy-team/imjoy-hybrid-desktop/binder?urlpath=desktop?plugin=`. For example, the final link will looks like:
     ```
