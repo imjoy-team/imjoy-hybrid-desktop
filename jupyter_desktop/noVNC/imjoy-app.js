@@ -8,7 +8,15 @@ loadImJoyBasicApp({
     main_container: null,
     menu_container: "imjoy-menu-container",
     window_manager_container: "imjoy-window-container",
-    imjoy_api: { } // override some imjoy API functions here
+    imjoy_api: {
+        connectDesktop(){
+            document.getElementById('noVNC_connect_button').click();
+        },
+        showLoader(show){
+            if(show) document.getElementById('loader').style.display = 'block';
+            else document.getElementById('loader').style.display = 'none';
+        }
+    } // override some imjoy API functions here
 }).then(async app => {
     // get the api object from the root plugin
     const api = app.imjoy.api;
@@ -43,16 +51,41 @@ loadImJoyBasicApp({
             vncContainer.style.pointerEvents = 'all';
         }
     })
+    const appContainer = document.getElementById('app-icon-container');
     app.imjoy.event_bus.on("register", (ctx)=>{
         if(ctx.config.type==='app-launcher'){
-            
+            const li = document.createElement('li');
+            li.innerHTML = `<a class="sociali" target="_blank" aria-label="${ctx.config.name}">
+                      <i class="material-icons" style="font-size: 50px;width: 100px;" title="${ctx.config.name}">${ctx.config.icon}</i>
+                        <span style="display:block;font-size:12px;">${ctx.config.name}</span>
+             </a>`
+            li.onclick = ()=>{
+                ctx.config.run()
+            }
+            appContainer.appendChild(li)
+            app.addMenuItem({
+                label: '💻 ' + ctx.config.name,
+                callback: ctx.config.run
+            });
         }
     })
-    app.imjoy.event_bus.on("unregister", (ctx)=>{
-        if(ctx.config.type==='app-launcher'){
-            
+    await api.registerService({
+        type: 'app-launcher',
+        name: 'elFinder',
+        icon: 'folder_open',
+        run(){
+            api.createWindow({src: baseURL+'elfinder', name: 'elFinder', passive: true})
         }
     })
+    await api.registerService({
+        type: 'app-launcher',
+        name: 'Connect Desktop',
+        icon: 'desktop_mac',
+        run(){
+            document.getElementById('noVNC_connect_button').click();
+        }
+    })
+    document.getElementById('loader').style.display = 'none';
     // Setting up the jupyter engine
     let serverConfig;
     try{
