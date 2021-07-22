@@ -1,5 +1,14 @@
+function getUrlParameter(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
+    var results = regex.exec(location.search);
+    return results === null
+      ? ""
+      : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
 loadImJoyBasicApp({
-    process_url_query: true,
+    process_url_query: false,
     show_window_title: false,
     show_progress_bar: true,
     show_empty_window: true,
@@ -85,7 +94,7 @@ loadImJoyBasicApp({
             document.getElementById('noVNC_connect_button').click();
         }
     })
-    document.getElementById('loader').style.display = 'none';
+    
     // Setting up the jupyter engine
     let serverConfig;
     try{
@@ -94,35 +103,60 @@ loadImJoyBasicApp({
     catch(e){
         alert("Failed to fetch jupyter server data, elFinder and Python Engine will be disabled.")
         console.error(e)
+        document.getElementById('loader').style.display = 'none';
         throw e
     }
-    console.log("Jupyter Server Config: ", serverConfig)
-    const baseURL = window.location.href.split('?')[0].replace('/desktop/', '/');
-    app.addMenuItem({
-        label: "📁 elFinder",
-        callback() {
-            api.createWindow({src: baseURL+'elfinder', name: 'elFinder', passive: true})
-        },
-    });
+    try{
+        console.log("Jupyter Server Config: ", serverConfig)
+        const baseURL = window.location.href.split('?')[0].replace('/desktop/', '/');
+        app.addMenuItem({
+            label: "📁 elFinder",
+            callback() {
+                api.createWindow({src: baseURL+'elfinder', name: 'elFinder', passive: true})
+            },
+        });
 
-    const engineManager =
-      (await api.getPlugin("Jupyter-Engine-Manager")) ||
-      (await api.getPlugin({
-        src:
-          "https://imjoy-team.github.io/jupyter-engine-manager/Jupyter-Engine-Manager.imjoy.html",
-      }));
+        const engineManager =
+        (await api.getPlugin("Jupyter-Engine-Manager")) ||
+        (await api.getPlugin({
+            src:
+            "https://imjoy-team.github.io/jupyter-engine-manager/Jupyter-Engine-Manager.imjoy.html",
+        }));
 
-    const engines = api.getServices({type: 'engine'})
-    const pythonEngines = engines.filter(engine => engine.pluginType === 'native-python')
-    for(let engine of pythonEngines){
-        await api.unregisterService(engine)
+        const engines = api.getServices({type: 'engine'})
+        const pythonEngines = engines.filter(engine => engine.pluginType === 'native-python')
+        for(let engine of pythonEngines){
+            await api.unregisterService(engine)
+        }
+        await engineManager.removeEngine({name: 'MyBinder Engine'})
+        await engineManager.createEngine({
+        name: "DefaultJupyterEngine",
+        url: baseURL,
+        nbUrl: baseURL+'?token=' + serverConfig.token,
+        });
+
+        const p = getUrlParameter("plugin") || getUrlParameter("p");
+        if (p) {
+            const plugin = await app.loadPlugin(p);
+            let config = {},
+            data = {},
+            tmp;
+            if(plugin.api.run){
+                tmp = getUrlParameter("data");
+                if (tmp) data = JSON.parse(tmp);
+                tmp = getUrlParameter("config");
+                if (tmp) config = JSON.parse(tmp);
+                await app.runPlugin(plugin, config, data);
+            }
+        }
+        // or display a message
+        await api.showMessage("ImJoy Loaded Successfully!");
     }
-    await engineManager.removeEngine({name: 'MyBinder Engine'})
-    await engineManager.createEngine({
-      name: "DefaultJupyterEngine",
-      url: baseURL,
-      nbUrl: baseURL+'?token=' + serverConfig.token,
-    });
-    // or display a message
-    await api.showMessage("ImJoy Loaded Successfully!");
+    catch(e){
+        console.error(e)
+        await api.alert(`Failed to connect to the Jupyter server: ${e}`)
+    }
+    finally{
+        document.getElementById('loader').style.display = 'none';
+    }
 });
