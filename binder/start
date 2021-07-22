@@ -9,4 +9,4 @@ ln -s "$CONDA_DIR/vnc/Desktop"
 SCRIPT_PATH=`dirname "$0"`
 bash ${SCRIPT_PATH}/dumpServerConfig.sh & 
 
-exec "$@" --NotebookApp.allow_origin="*"
+exec "$@"
