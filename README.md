@@ -1,5 +1,5 @@
 # ImJoy Binder Desktop
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/oeway/omero-guide-fiji/imjoy?urlpath=desktop)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/imjoy-team/imjoy-binder-desktop/binder?urlpath=desktop)
 [![Actions Status](https://github.com/imjoy-team/imjoy-binder-desktop/workflows/repo2docker/badge.svg)](https://github.com/imjoy-team/imjoy-binder-desktop/actions)
 
 
@@ -11,13 +11,13 @@ With the ImJoy integration, developers can use ImJoy plugins to customize the re
 
 
 ## Usage
-To start the remote desktop environment, you can either [run on mybinder.org](https://mybinder.org/v2/gh/oeway/omero-guide-fiji/imjoy?urlpath=desktop) or build locally with [repo2docker](https://repo2docker.readthedocs.io/).
+To start the remote desktop environment, you can either [run on mybinder.org](https://mybinder.org/v2/gh/imjoy-team/imjoy-binder-desktop/binder?urlpath=desktop) or build locally with [repo2docker](https://repo2docker.readthedocs.io/).
 
 To build locally:
 
  * Install [Docker](https://www.docker.com/) if required
  * Create a virtual environment and install repo2docker from PyPI.
- * Clone this repository
+ * Clone this repository and checkout to the `binder` branch
  * Run  ``repo2docker``. 
  * Depending on the permissions, you might have to run the command as an admin
 
