@@ -11,7 +11,4 @@ setuptools.setup(
         ]
     },
     install_requires=['jupyter-server-proxy'],
-    package_data={
-        'jupyter_desktop': ['desktop/*'],
-    },
 )

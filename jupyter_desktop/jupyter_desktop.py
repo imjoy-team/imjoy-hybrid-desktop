@@ -24,4 +24,7 @@ def setup_desktop():
         'port': 5901,
         'timeout': 30,
         'mappath': {'/': '/vnc_imjoy.html'},
+        'launcher_entry': {
+            "title": "ImJoy Remote Desktop",
+        },
     }
