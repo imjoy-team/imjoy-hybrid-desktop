@@ -1,8 +1,6 @@
 # ImJoy Remote Desktop
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/oeway/omero-guide-fiji/imjoy?urlpath=desktop)
-
 [![Actions Status](https://github.com/imjoy-team/imjoy-remote-desktop/workflows/repo2docker/badge.svg)](https://github.com/imjoy-team/imjoy-remote-desktop/actions)
-
 [![Actions Status](https://github.com/imjoy-team/imjoy-remote-desktop/workflows/sphinx/badge.svg)](https://github.com/imjoy-team/imjoy-remote-desktop/actions)
 
 
@@ -13,7 +11,8 @@ With the ImJoy integration, developers can use ImJoy plugins to customize the re
  2) By doing runtime customization with ImJoy plugins, it allows the user reusing the docker container thus speed up the launching in a public docker environment
 
 
-To run the desktop, you can either [run on mybinder.org](https://mybinder.org/v2/gh/oeway/omero-guide-fiji/imjoy?urlpath=desktop) or build locally with [repo2docker](https://repo2docker.readthedocs.io/).
+## Usage
+To start the remote desktop environment, you can either [run on mybinder.org](https://mybinder.org/v2/gh/oeway/omero-guide-fiji/imjoy?urlpath=desktop) or build locally with [repo2docker](https://repo2docker.readthedocs.io/).
 
 To build locally:
 

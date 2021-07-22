@@ -3,6 +3,31 @@ set -eux
 
 env
 
+APP_DIR=/srv/conda/app
+mkdir $APP_DIR
+pushd $APP_DIR
+# Desktop applications
+# Fiji and OMERO insight
+
+OMERO_INSIGHT_VERSION=5.6.1
+OMERO_INSIGHT_URL_BASE=https://github.com/ome/omero-insight/releases/download/v$OMERO_INSIGHT_VERSION
+
+wget https://downloads.imagej.net/fiji/archive/20201104-1356/fiji-nojre.zip
+unzip -q fiji-nojre.zip
+rm fiji-nojre.zip
+
+# Fix Fiji issue
+mv Fiji.app/jars/FilamentDetector-1.0.0.jar Fiji.app/jars/FilamentDetector-1.0.0.jar.disabled
+
+# # Update Fiji
+Fiji.app/ImageJ-linux64 --update update
+
+pushd Fiji.app/plugins
+wget -q $OMERO_INSIGHT_URL_BASE/omero_ij-$OMERO_INSIGHT_VERSION-all.jar
+popd
+
+popd
+
 VNC_APPLICATION_DIR=$CONDA_DIR/vnc
 mkdir $VNC_APPLICATION_DIR
 pushd $VNC_APPLICATION_DIR
@@ -32,28 +57,6 @@ cp $REPO_DIR/jupyter_desktop/share/xstartup .
 chmod +x xstartup
 
 
-# Desktop applications
-# Fiji and OMERO insight
-
-OMERO_INSIGHT_VERSION=5.6.1
-OMERO_INSIGHT_URL_BASE=https://github.com/ome/omero-insight/releases/download/v$OMERO_INSIGHT_VERSION
-
-wget https://downloads.imagej.net/fiji/latest/fiji-nojre.zip
-unzip -q fiji-nojre.zip
-rm fiji-nojre.zip
-
-# Fix Fiji issue
-mv Fiji.app/jars/FilamentDetector-1.0.0.jar Fiji.app/jars/FilamentDetector-1.0.0.jar.disabled
-
-# Add libraries
-# Fiji.app/ImageJ-linux64 --update add-update-site Noise2Void https://sites.imagej.net/CSBDeep/
-# Fiji.app/ImageJ-linux64 --update add-update-site DeepImageJ https://sites.imagej.net/DeepImageJ/
-# Fiji.app/ImageJ-linux64 --update add-update-site MoBIE https://sites.imagej.net/MoBIE/
-# Fiji.app/ImageJ-linux64 --update update
-
-pushd Fiji.app/plugins
-wget -q $OMERO_INSIGHT_URL_BASE/omero_ij-$OMERO_INSIGHT_VERSION-all.jar
-popd
 
 mkdir Desktop
 

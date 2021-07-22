@@ -32,7 +32,7 @@ from omero.gateway import BlitzGateway
 
 # Step 1 - Load-Fiji
 def start_fiji():
-    ij = imagej.init('/srv/conda/vnc/Fiji.app', headless=False)
+    ij = imagej.init('/srv/conda/app/Fiji.app', headless=False)
     ij.getVersion()
     return ij
 

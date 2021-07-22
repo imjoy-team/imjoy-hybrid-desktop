@@ -44,8 +44,12 @@
                 msg.appendChild(div);
             }
 
-            document.getElementById('noVNC_fallback_error')
-                .classList.add("noVNC_open");
+            const errorDialog = document.getElementById('noVNC_fallback_error')
+            errorDialog.classList.add("noVNC_open");
+            errorDialog.style.cursor = "pointer";
+            errorDialog.addEventListener('click', ()=>{
+                errorDialog.classList.remove("noVNC_open")
+            })
         } catch (exc) {
             document.write("noVNC encountered an error.");
         }
