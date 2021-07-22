@@ -3,6 +3,7 @@ import os
 
 def setup_desktop():
     VNC_APPLICATION_DIR = os.path.join(os.getenv('CONDA_DIR'), 'vnc')
+
     return {
         'command': [
             'websockify', '-v',

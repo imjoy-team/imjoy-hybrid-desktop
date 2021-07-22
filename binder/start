@@ -6,7 +6,7 @@ export XFCE_PANEL_MIGRATE_DEFAULT=1
 export DISPLAY=:1.0
 ln -s "$CONDA_DIR/vnc/Desktop"
 
-# Start ImJoy elFinder
-export BINDER_BASE_URL=`jupyter notebook list --json | python3 -c 'import json; import sys; print(json.load(sys.stdin)["base_url"])'`
+SCRIPT_PATH=`dirname "$0"`
+bash ${SCRIPT_PATH}/dumpServerConfig.sh & 
 
-exec "$@"
+exec "$@" --NotebookApp.allow_origin="*"

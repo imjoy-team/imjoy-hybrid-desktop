@@ -67,9 +67,10 @@ const UI = {
         }
 
         // Restore control bar position
-        if (WebUtil.readSetting('controlbar_pos') === 'right') {
+        // IMJOY PATCH: always on the right side
+        // if (WebUtil.readSetting('controlbar_pos') === 'right') {
             UI.toggleControlbarSide();
-        }
+        // }
 
         UI.initFullscreen();
 

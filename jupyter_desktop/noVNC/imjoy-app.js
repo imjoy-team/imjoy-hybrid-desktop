@@ -23,14 +23,16 @@ loadImJoyBasicApp({
         if (uri) app.loadPlugin(uri);
         },
     });
-    const baseURL = window.location.href.split('?')[0].replace('/desktop/', '/');
+        
     app.addMenuItem({
-        label: "📁 elFinder",
-        callback() {
-            api.createWindow({src: baseURL+'elfinder', name: 'elFinder', passive: true})
+        label: "🧩 ImJoy Fiddle",
+        async callback() {
+          const plugin = await app.loadPlugin("https://if.imjoy.io")
+          await app.runPlugin(plugin)
+          app.removeMenuItem("🧩 ImJoy Fiddle")
         },
     });
-    
+
     // make sure we can drag/resize the imjoy windows
     const vncContainer = document.getElementById('noVNC_container');
     window.addEventListener('mousedown', function(event){
@@ -41,11 +43,52 @@ loadImJoyBasicApp({
             vncContainer.style.pointerEvents = 'none';
         }
     })
+    window.addEventListener('mouseenter', function(event){
+        if(!vncContainer.contains(event.target)){
+            vncContainer.style.pointerEvents = 'none';
+        }
+    })
     window.addEventListener('mouseup', function(event){
         document.getElementById('noVNC_container').style.pointerEvents = 'all';
     })
+    
+    // Setting up the jupyter engine
+    let serverConfig;
+    try{
+        serverConfig = await (await fetch('./jupyter_server_config.json')).json()
+    }
+    catch(e){
+        alert("Failed to fetch jupyter server data, elFinder and Python Engine will be disabled.")
+        console.error(e)
+        throw e
+    }
+    console.log("Jupyter Server Config: ", serverConfig)
+    const baseURL = window.location.href.split('?')[0].replace('/desktop/', '/');
+    app.addMenuItem({
+        label: "📁 elFinder",
+        callback() {
+            api.createWindow({src: baseURL+'elfinder', name: 'elFinder', passive: true})
+        },
+    });
+
+    const engineManager =
+      (await api.getPlugin("Jupyter-Engine-Manager")) ||
+      (await api.getPlugin({
+        src:
+          "https://imjoy-team.github.io/jupyter-engine-manager/Jupyter-Engine-Manager.imjoy.html",
+      }));
+
+    const engines = api.getServices({type: 'engine'})
+    const pythonEngines = engines.filter(engine => engine.pluginType === 'native-python')
+    for(let engine of pythonEngines){
+        await api.unregisterService(engine)
+    }
+    await engineManager.removeEngine({name: 'MyBinder Engine'})
+    await engineManager.createEngine({
+      name: "DefaultJupyterEngine",
+      url: baseURL,
+      nbUrl: baseURL+'?token=' + serverConfig.token,
+    });
     // or display a message
     await api.showMessage("ImJoy Loaded Successfully!");
-    // or progress
-    await api.showProgress(50);
 });
