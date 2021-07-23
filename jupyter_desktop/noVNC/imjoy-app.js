@@ -78,6 +78,7 @@ loadImJoyBasicApp({
             });
         }
     })
+    const baseURL = window.location.href.split('?')[0].replace('/desktop/', '/');
     await api.registerService({
         type: 'app-launcher',
         name: 'elFinder',
@@ -108,7 +109,7 @@ loadImJoyBasicApp({
     }
     try{
         console.log("Jupyter Server Config: ", serverConfig)
-        const baseURL = window.location.href.split('?')[0].replace('/desktop/', '/');
+        
         app.addMenuItem({
             label: "📁 elFinder",
             callback() {
