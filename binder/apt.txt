@@ -4,7 +4,6 @@ dbus-x11
 firefox
 less
 net-tools
-openjdk-8-jre
 unzip
 vim
 xfce4
