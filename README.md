@@ -3,7 +3,11 @@
 [![Actions Status](https://github.com/imjoy-team/imjoy-hybrid-desktop/workflows/repo2docker/badge.svg)](https://github.com/imjoy-team/imjoy-hybrid-desktop/actions)
 
 
-An ImJoy powered fully customizable remote desktop environment for running Fiji and other desktop software.
+An ImJoy powered fully customizable hybrid desktop environment for running native desktop apps and web apps together.
+
+**What do you mean by saying it's a hybrid desktop?**
+It's hybrid because it support in-browser web apps and the native apps running remotely, the app windows are shown in the same interface and this is what meant by saying it's hybrid desktop.
+
 
 With the ImJoy integration, developers can use ImJoy plugins to customize the remote desktop. It allows creating hybrid apps that runs partly in the browser and a remote server. This combination allows 
  1) improve the user experience by letting latency sensitive part (e.g. interactive UI) run in the browser as ImJoy plugin, and the computation part run remotely
