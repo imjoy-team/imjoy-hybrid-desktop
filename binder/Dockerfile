@@ -7,15 +7,18 @@ FROM tswetnam/xpra:20.04
 ARG NB_USER
 ARG NB_UID
 
+USER root
 ENV USER ${NB_USER}
-# Make sure the contents of our repo are in ${HOME}
-# COPY . ${HOME}
-RUN adduser --disabled-password \
-    --gecos "Default user" \
-    --uid ${NB_UID} \
-    ${NB_USER}
+# RUN adduser --disabled-password \
+#     --gecos "Default user" \
+#     --uid ${NB_UID} \
+#     ${NB_USER}
 
 ENV HOME /home/${NB_USER}
+
+# Make sure the contents of our repo are in ${HOME}
+COPY . ${HOME}
+
 
 # copy the entry point file
 ADD ./binder ${HOME}/binder
