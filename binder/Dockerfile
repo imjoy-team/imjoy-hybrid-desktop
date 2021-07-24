@@ -25,13 +25,7 @@ ADD ./binder ${HOME}/binder
 RUN chmod +x ${HOME}/binder/start
 RUN chmod +x ${HOME}/binder/postBuild
 
-RUN chown -R ${NB_USER} ${HOME}
-# for conda
-RUN chown -R ${NB_USER} /opt 
-
-USER ${USER}
 WORKDIR ${HOME}
-
 SHELL ["/bin/bash", "--login", "-c"]
 
 RUN wget \
@@ -40,6 +34,11 @@ RUN wget \
     && rm -f Miniconda3-latest-Linux-x86_64.sh 
 RUN conda --version
 
+
+RUN chown -R ${NB_USER} /opt/conda
+RUN chown -R ${NB_USER} ${HOME}
+
+USER ${USER}
 
 ENV PATH="${HOME}/.local/bin:${PATH}"
 
