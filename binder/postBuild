@@ -6,6 +6,9 @@ env
 # Desktop applications
 # Fiji and OMERO insight
 
+# Use JDK in conda
+export JAVA_HOME=/opt/conda/bin
+
 wget https://downloads.imagej.net/fiji/archive/20201104-1356/fiji-nojre.zip
 unzip -q fiji-nojre.zip
 rm fiji-nojre.zip

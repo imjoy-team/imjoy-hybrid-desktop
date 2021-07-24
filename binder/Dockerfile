@@ -38,12 +38,12 @@ RUN wget \
     && rm -f Miniconda3-latest-Linux-x86_64.sh 
 RUN conda --version
 
-RUN ls /opt
-RUN which python && which conda
-ENV PATH="/opt/miniconda3/bin:${HOME}/.local/bin:${PATH}"
-# install the notebook package
-# RUN pip install --no-cache --upgrade pip && \
-#     pip install --no-cache notebook
+
+ENV PATH="${HOME}/.local/bin:${PATH}"
+
 RUN conda env update --file ${HOME}/binder/environment.yml
+# install the notebook package
+RUN pip install --no-cache notebook
 RUN ${HOME}/binder/postBuild
 ENTRYPOINT ["./binder/start"]
+# To start xpra: xpra start --bind-tcp=0.0.0.0:9876 --html=on --start-child=xterm --daemon=no :100
