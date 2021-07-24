@@ -7,7 +7,6 @@ FROM tswetnam/xpra:20.04
 ARG NB_USER
 ARG NB_UID
 
-USER root
 ENV USER ${NB_USER}
 # Make sure the contents of our repo are in ${HOME}
 # COPY . ${HOME}
