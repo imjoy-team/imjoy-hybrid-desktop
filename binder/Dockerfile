@@ -28,17 +28,16 @@ RUN chmod +x ${HOME}/binder/postBuild
 WORKDIR ${HOME}
 SHELL ["/bin/bash", "--login", "-c"]
 
-RUN wget \
-    https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
-    && bash Miniconda3-latest-Linux-x86_64.sh -b \
-    && rm -f Miniconda3-latest-Linux-x86_64.sh 
-RUN conda --version
-
-
-RUN chown -R ${NB_USER} /opt/conda
 RUN chown -R ${NB_USER} ${HOME}
 
 USER ${USER}
+
+RUN wget \
+    https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ${HOME}/miniconda.sh \
+    && bash miniconda.sh -b -p $HOME/miniconda3 \
+    && rm -f $HOME/miniconda.sh
+RUN conda --version
+RUN which conda
 
 ENV PATH="${HOME}/.local/bin:${PATH}"
 
