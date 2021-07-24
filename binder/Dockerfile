@@ -9,10 +9,10 @@ ARG NB_UID
 
 USER root
 ENV USER ${NB_USER}
-# RUN adduser --disabled-password \
-#     --gecos "Default user" \
-#     --uid ${NB_UID} \
-#     ${NB_USER}
+RUN adduser --disabled-password \
+    --gecos "Default user" \
+    # --uid ${NB_UID} \
+    ${NB_USER}
 
 ENV HOME /home/${NB_USER}
 
@@ -25,9 +25,9 @@ ADD ./binder ${HOME}/binder
 RUN chmod +x ${HOME}/binder/start
 RUN chmod +x ${HOME}/binder/postBuild
 
-RUN chown -R ${NB_UID} ${HOME}
+RUN chown -R ${NB_USER} ${HOME}
 # for conda
-RUN chown -R ${NB_UID} /opt 
+RUN chown -R ${NB_USER} /opt 
 
 USER ${USER}
 WORKDIR ${HOME}
