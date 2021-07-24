@@ -1,0 +1,21 @@
+#!/bin/bash
+set -eux
+
+env
+
+# Desktop applications
+# Fiji and OMERO insight
+
+wget https://downloads.imagej.net/fiji/archive/20201104-1356/fiji-nojre.zip
+unzip -q fiji-nojre.zip
+rm fiji-nojre.zip
+
+# Back it up to avoid breaking the Fiji after updating
+# https://forum.image.sc/t/fiji-wont-start-after-updating/55605/3
+cp Fiji.app/ImageJ-linux64 Fiji.app/ImageJ-linux64-stable
+
+# Fix Fiji issue
+mv Fiji.app/jars/FilamentDetector-1.0.0.jar Fiji.app/jars/FilamentDetector-1.0.0.jar.disabled
+
+# # Update Fiji
+Fiji.app/ImageJ-linux64 --update update
