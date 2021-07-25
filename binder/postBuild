@@ -20,5 +20,18 @@ cp Fiji.app/ImageJ-linux64 Fiji.app/ImageJ-linux64-stable
 # Fix Fiji issue
 mv Fiji.app/jars/FilamentDetector-1.0.0.jar Fiji.app/jars/FilamentDetector-1.0.0.jar.disabled
 
-# # Update Fiji
+# Update Fiji
 Fiji.app/ImageJ-linux64 --update update
+
+# Fix the launcher
+mv Fiji.app/ImageJ-linux64-stable Fiji.app/ImageJ-linux64
+
+
+pushd ${HOME}/xpra_server
+
+# Configure jupyter-server-proxy xpra
+# https://jupyter-server-proxy.readthedocs.io/en/latest/server-process.html#specifying-config-from-python-packages
+pip install .
+python -c "from pkg_resources import iter_entry_points; print(list(iter_entry_points(group='jupyter_serverproxy_servers')))"
+
+popd
