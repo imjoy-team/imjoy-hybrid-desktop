@@ -7,6 +7,7 @@ dependencies:
   - pip
   - websockify
   - pyimagej
+  - jupyter
   - omero-py
   - jupyter-server-proxy
   - openjdk=11
