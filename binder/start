@@ -1,4 +1,5 @@
 #!/bin/bash
 set -e
 
-exec /opt/conda/bin/python -m "$@"
+export PATH="${HOME}/.local/bin:${PATH}"
+exec "$@"
