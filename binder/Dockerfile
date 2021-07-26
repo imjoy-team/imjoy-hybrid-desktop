@@ -11,13 +11,13 @@ USER root
 ENV USER ${NB_USER}
 RUN adduser --disabled-password \
     --gecos "Default user" \
-    # --uid ${NB_UID} \
+    --uid ${NB_UID} \
     ${NB_USER}
-
+    
 ENV HOME /home/${NB_USER}
 
 # Make sure the contents of our repo are in ${HOME}
-COPY . ${HOME}
+COPY --chown=${USER}:${USER} . ${HOME}
 
 
 # copy the entry point file
@@ -28,7 +28,7 @@ RUN chmod +x ${HOME}/binder/postBuild
 WORKDIR ${HOME}
 SHELL ["/bin/bash", "--login", "-c"]
 
-RUN chown -R ${NB_USER} ${HOME}
+RUN chown -R ${USER}:${USER} ${HOME}
 
 RUN wget \
     https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ${HOME}/miniconda.sh \
@@ -36,10 +36,11 @@ RUN wget \
     && rm -f $HOME/miniconda.sh
 RUN conda --version
 RUN which conda
-RUN chown -R ${NB_USER} /opt/conda
-USER ${USER}
-RUN chown -R ${NB_USER} ${HOME}/.local
+RUN chown -R ${USER}:${USER} /opt/conda
+RUN chown -R ${USER}:${USER} ${HOME}
 ENV PATH="${HOME}/.local/bin:${PATH}"
+
+USER ${USER}
 
 RUN conda env update --file ${HOME}/binder/environment.yml
 # install the notebook package
