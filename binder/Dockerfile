@@ -27,7 +27,6 @@ RUN chmod +x ${HOME}/binder/postBuild
 
 WORKDIR ${HOME}
 SHELL ["/bin/bash", "--login", "-c"]
-
 RUN chown -R ${NB_USER} ${HOME}
 
 RUN wget \
@@ -37,13 +36,14 @@ RUN wget \
 RUN conda --version
 RUN which conda
 RUN chown -R ${NB_USER} /opt/conda
+RUN chown -R ${NB_USER} ${HOME}
 USER ${USER}
 
 ENV PATH="${HOME}/.local/bin:${PATH}"
 
 RUN conda env update --file ${HOME}/binder/environment.yml
 # install the notebook package
-RUN pip install --no-cache notebook
+RUN conda install jupyter
 RUN ${HOME}/binder/postBuild
 ENTRYPOINT ["./binder/start"]
 # To start xpra: xpra start --bind-tcp=0.0.0.0:9876 --html=on --start-child=xterm --daemon=no :100
