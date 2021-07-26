@@ -2,4 +2,5 @@
 set -e
 
 #exec /opt/conda/bin/python -m "$@"
-exec conda run "$@"
+# exec conda run "$@"
+exec "$@"
