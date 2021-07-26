@@ -1,4 +1,4 @@
-FROM buildpack-deps:bionic
+FROM ubuntu:bionic-20210702
 
 # Avoid prompts from apt
 ENV DEBIAN_FRONTEND=noninteractive
@@ -15,6 +15,20 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 # Use bash as default shell, rather than sh
 ENV SHELL /bin/bash
+
+# Install xpra
+VOLUME /tmp/.X11-unix
+RUN apt update \
+ && DEBIAN_FRONTEND=noninteractive apt install -y wget gnupg xvfb x11-xserver-utils python3-pip \
+# pulseaudio lxterminal \
+ && pip3 install pyinotify \
+ && echo "deb [arch=amd64] https://xpra.org/ bionic main" > /etc/apt/sources.list.d/xpra.list \
+ && wget -q https://xpra.org/gpg.asc -O- | apt-key add - \
+ && apt update \
+ && DEBIAN_FRONTEND=noninteractive apt install -y xpra \
+ && mkdir -p /run/user/0/xpra \
+ && apt install -y openjdk-11-jdk unzip
+
 
 # Set up user
 ARG NB_USER
@@ -36,20 +50,6 @@ RUN wget --quiet -O - https://deb.nodesource.com/gpgkey/nodesource.gpg.key |  ap
     DISTRO="bionic" && \
     echo "deb https://deb.nodesource.com/node_14.x $DISTRO main" >> /etc/apt/sources.list.d/nodesource.list && \
     echo "deb-src https://deb.nodesource.com/node_14.x $DISTRO main" >> /etc/apt/sources.list.d/nodesource.list
-
-
-# Install xpra
-VOLUME /tmp/.X11-unix
-RUN apt update \
- && DEBIAN_FRONTEND=noninteractive apt install -y wget gnupg xvfb x11-xserver-utils python3-pip \
-# pulseaudio lxterminal \
- && pip3 install pyinotify \
- && echo "deb [arch=amd64] https://xpra.org/ bionic main" > /etc/apt/sources.list.d/xpra.list \
- && wget -q https://xpra.org/gpg.asc -O- | apt-key add - \
- && apt update \
- && DEBIAN_FRONTEND=noninteractive apt install -y xpra \
- && mkdir -p /run/user/0/xpra \
- && apt install -y openjdk-11-jdk unzip
 
 
 # Allow target path repo is cloned to be configurable
