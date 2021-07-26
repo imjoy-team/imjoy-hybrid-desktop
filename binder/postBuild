@@ -3,10 +3,6 @@ set -eux
 
 env
 
-# For xpra
-mkdir -pv ~/.cache/xdgr
-export XDG_RUNTIME_DIR=$PATH:~/.cache/xdgr
-
 # Desktop applications
 # Fiji and OMERO insight
 
