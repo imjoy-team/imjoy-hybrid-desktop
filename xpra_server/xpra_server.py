@@ -6,7 +6,7 @@ def setup_server():
             '--html=on',
             '--start-child=xterm',
             '--daemon=no',
-            ":1"
+            ":200"
         ],
         'port': 5909,
         'timeout': 30,
