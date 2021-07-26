@@ -38,7 +38,7 @@ RUN conda --version
 RUN which conda
 RUN chown -R ${NB_USER} /opt/conda
 USER ${USER}
-RUN chown -R ${NB_USER} ${HOME}
+RUN chown -R ${NB_USER} ${HOME}/.local
 ENV PATH="${HOME}/.local/bin:${PATH}"
 
 RUN conda env update --file ${HOME}/binder/environment.yml
