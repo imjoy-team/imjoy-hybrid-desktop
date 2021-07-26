@@ -28,4 +28,5 @@ python-gi-dev
 xauth
 x11-xkb-utils
 xvfb
+xterm
 
