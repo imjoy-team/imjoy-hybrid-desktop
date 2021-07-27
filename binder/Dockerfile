@@ -3,6 +3,22 @@ FROM ubuntu:bionic
 
 # Avoid prompts from apt
 ENV DEBIAN_FRONTEND=noninteractive
+
+# Install xpra
+VOLUME /tmp/.X11-unix
+RUN apt update \
+ && DEBIAN_FRONTEND=noninteractive apt install -y wget gnupg xvfb x11-xserver-utils python3-pip lxterminal \
+#   pulseaudio lxterminal \
+ && pip3 install pyinotify \
+ && echo "deb [arch=amd64] https://xpra.org/ bionic main" > /etc/apt/sources.list.d/xpra.list \
+ && wget -q https://xpra.org/gpg.asc -O- | apt-key add - \
+ && apt update \
+ && DEBIAN_FRONTEND=noninteractive apt install -y xpra \
+ && mkdir -p /run/user/0/xpra \
+ && apt install -y openjdk-11-jre unzip \
+ # remove packages that are not needed
+ && apt remove -y python3-pip 
+
 # Set up locales properly
 RUN apt-get -qq update && \
     apt-get -qq install --yes --no-install-recommends locales > /dev/null && \
@@ -16,20 +32,6 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 # Use bash as default shell, rather than sh
 ENV SHELL /bin/bash
-
-
-# Install xpra
-VOLUME /tmp/.X11-unix
-RUN apt update \
- && DEBIAN_FRONTEND=noninteractive apt install -y wget gnupg xvfb x11-xserver-utils python3-pip \
-# pulseaudio lxterminal \
- && pip3 install pyinotify \
- && echo "deb [arch=amd64] https://xpra.org/ bionic main" > /etc/apt/sources.list.d/xpra.list \
- && wget -q https://xpra.org/gpg.asc -O- | apt-key add - \
- && apt update \
- && DEBIAN_FRONTEND=noninteractive apt install -y xpra \
- && mkdir -p /run/user/0/xpra \
- && apt install -y openjdk-11-jdk unzip
 
  
 # Set up user
@@ -53,9 +55,6 @@ RUN wget --quiet -O - https://deb.nodesource.com/gpgkey/nodesource.gpg.key |  ap
     echo "deb https://deb.nodesource.com/node_14.x $DISTRO main" >> /etc/apt/sources.list.d/nodesource.list && \
     echo "deb-src https://deb.nodesource.com/node_14.x $DISTRO main" >> /etc/apt/sources.list.d/nodesource.list
 
-
-
-
 # Allow target path repo is cloned to be configurable
 ARG REPO_DIR=${HOME}
 ENV REPO_DIR ${REPO_DIR}
@@ -67,16 +66,15 @@ COPY . ${HOME}
 
 # copy the entry point file
 ADD ./binder ${HOME}/binder
-RUN chmod +x ${HOME}/binder/start
-RUN chmod +x ${HOME}/binder/postBuild
+RUN chmod +x ${HOME}/binder/start \
+    && chmod +x ${HOME}/binder/postBuild
 
 WORKDIR ${HOME}
 SHELL ["/bin/bash", "--login", "-c"]
 
-RUN chown -R ${NB_USER} ${HOME}
-
-RUN mkdir /opt/conda
-RUN chmod ugo+w /opt/conda
+RUN chown -R ${NB_USER} ${HOME} \
+    && mkdir /opt/conda \
+    && chmod ugo+w /opt/conda
 
 # We always want containers to run as non-root
 USER ${NB_USER}
@@ -86,8 +84,6 @@ RUN wget \
     && bash miniconda.sh -b -p /opt/conda/miniconda3 \
     && rm -f $HOME/miniconda.sh
 ENV PATH="/opt/conda/miniconda3/bin:${PATH}"
-RUN conda --version
-RUN which conda
 
 # We want to allow two things:
 #   1. If there's a .local/bin directory in the repo, things there
@@ -102,7 +98,6 @@ ENV PATH ${HOME}/.local/bin:${REPO_DIR}/.local/bin:${PATH}
 # RUN conda env update --file ${HOME}/binder/environment.yml
 # install the notebook package
 RUN pip install --no-cache notebook
-RUN pip install --no-cache jupyter-server-proxy
 RUN ${HOME}/binder/postBuild
 ENTRYPOINT ["./binder/start"]
 # To start xpra: xpra start --bind-tcp=0.0.0.0:9876 --html=on --start-child=xterm --daemon=no :100

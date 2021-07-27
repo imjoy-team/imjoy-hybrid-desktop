@@ -4,7 +4,7 @@ def setup_server():
             'xpra', 'start',
             '--bind-tcp=0.0.0.0:5909',
             '--html=on',
-            '--start=xterm',
+            '--start=lxterminal',
             '--daemon=no',
             ":200"
         ],
