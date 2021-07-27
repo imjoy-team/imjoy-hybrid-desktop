@@ -21,8 +21,8 @@ cp Fiji.app/ImageJ-linux64 Fiji.app/ImageJ-linux64-stable
 mv Fiji.app/jars/FilamentDetector-1.0.0.jar Fiji.app/jars/FilamentDetector-1.0.0.jar.disabled
 
 # Update Fiji
-Fiji.app/ImageJ-linux64 --update add-update-site MoBIE https://sites.imagej.net/MoBIE/
-Fiji.app/ImageJ-linux64 --update update
+Fiji.app/ImageJ-linux64-stable --update add-update-site MoBIE https://sites.imagej.net/MoBIE/
+Fiji.app/ImageJ-linux64-stable --update update
 
 # Fix the launcher
 mv Fiji.app/ImageJ-linux64-stable Fiji.app/ImageJ-linux64

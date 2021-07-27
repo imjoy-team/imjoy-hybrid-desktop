@@ -6,20 +6,25 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Install xpra
 VOLUME /tmp/.X11-unix
+RUN chmod 777 /tmp/.X11-unix
 RUN apt update \
- && DEBIAN_FRONTEND=noninteractive apt install -y wget gnupg xvfb x11-xserver-utils python3-pip lxterminal \
+ && DISTRO="bionic" \
+ && echo "deb https://deb.nodesource.com/node_14.x $DISTRO main" >> /etc/apt/sources.list.d/nodesource.list \
+ && echo "deb-src https://deb.nodesource.com/node_14.x $DISTRO main" >> /etc/apt/sources.list.d/nodesource.list \
+ && DEBIAN_FRONTEND=noninteractive apt install -y wget gnupg apt-transport-https software-properties-common xvfb x11-xserver-utils python3-pip lxterminal \
 #   pulseaudio lxterminal \
  && pip3 install pyinotify \
- && echo "deb [arch=amd64] https://xpra.org/ bionic main" > /etc/apt/sources.list.d/xpra.list \
+ && wget --quiet -O - https://deb.nodesource.com/gpgkey/nodesource.gpg.key |  apt-key add - \
+ && echo "deb [arch=amd64] https://xpra.org/ $DISTRO main" > /etc/apt/sources.list.d/xpra.list \
  && wget -q https://xpra.org/gpg.asc -O- | apt-key add - \
- && echo "deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ bionic main" > /etc/apt/sources.list.d/xpra.list \
  && wget -q https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public -O- | apt-key add - \
+ && add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ \
  && apt update \
  && DEBIAN_FRONTEND=noninteractive apt install -y xpra \
  && mkdir -p /run/user/0/xpra \
  && apt install -y adoptopenjdk-11-hotspot unzip \
  # remove packages that are not needed
- && apt remove -y python3-pip
+ && apt remove -y python3-pip 
 
 # Set up locales properly
 RUN apt-get -qq update && \
@@ -52,10 +57,6 @@ RUN groupadd \
         --shell /bin/bash \
         --uid ${NB_UID} \
         ${NB_USER}
-RUN wget --quiet -O - https://deb.nodesource.com/gpgkey/nodesource.gpg.key |  apt-key add - && \
-    DISTRO="bionic" && \
-    echo "deb https://deb.nodesource.com/node_14.x $DISTRO main" >> /etc/apt/sources.list.d/nodesource.list && \
-    echo "deb-src https://deb.nodesource.com/node_14.x $DISTRO main" >> /etc/apt/sources.list.d/nodesource.list
 
 # Allow target path repo is cloned to be configurable
 ARG REPO_DIR=${HOME}
