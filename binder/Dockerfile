@@ -12,12 +12,14 @@ RUN apt update \
  && pip3 install pyinotify \
  && echo "deb [arch=amd64] https://xpra.org/ bionic main" > /etc/apt/sources.list.d/xpra.list \
  && wget -q https://xpra.org/gpg.asc -O- | apt-key add - \
+ && echo "deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ bionic main" > /etc/apt/sources.list.d/xpra.list \
+ && wget -q https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public -O- | apt-key add - \
  && apt update \
  && DEBIAN_FRONTEND=noninteractive apt install -y xpra \
  && mkdir -p /run/user/0/xpra \
- && apt install -y openjdk-11-jre unzip \
+ && apt install -y adoptopenjdk-11-hotspot unzip \
  # remove packages that are not needed
- && apt remove -y python3-pip 
+ && apt remove -y python3-pip
 
 # Set up locales properly
 RUN apt-get -qq update && \
