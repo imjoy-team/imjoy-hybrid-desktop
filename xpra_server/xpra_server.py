@@ -4,9 +4,9 @@ def setup_server():
             'xpra', 'start',
             '--bind-tcp=0.0.0.0:5909',
             '--html=on',
-            '--start-child=xterm',
+            '--start=lxterminal',
             '--daemon=no',
-            ":1"
+            ":200"
         ],
         'port': 5909,
         'timeout': 30,
