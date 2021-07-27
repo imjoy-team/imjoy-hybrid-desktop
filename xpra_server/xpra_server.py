@@ -1,9 +1,11 @@
+import os
+
 def setup_server():
     return {
         'command': [
             'xpra', 'start',
             '--bind-tcp=0.0.0.0:5909',
-            '--html=on',
+            '--html=' + os.path.join(os.path.dirname(os.path.realpath(__file__)), 'html5'),
             '--start=lxterminal',
             '--daemon=no',
             ":200"

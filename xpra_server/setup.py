@@ -10,5 +10,6 @@ setuptools.setup(
             'desktop = xpra_server:setup_server',
         ]
     },
+    include_package_data=True,
     install_requires=['jupyter-server-proxy'],
 )

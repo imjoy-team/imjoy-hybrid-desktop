@@ -31,7 +31,7 @@ pushd ${HOME}/xpra_server
 
 # Configure jupyter-server-proxy xpra
 # https://jupyter-server-proxy.readthedocs.io/en/latest/server-process.html#specifying-config-from-python-packages
-pip install .
+pip install -e .
 python -c "from pkg_resources import iter_entry_points; print(list(iter_entry_points(group='jupyter_serverproxy_servers')))"
 
 popd
