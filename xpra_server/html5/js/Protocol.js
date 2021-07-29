@@ -451,7 +451,7 @@ XpraProtocol.prototype.process_send_queue = function() {
 		try {
 			//use rencode if available,
 			//but not with encryption (see issue #43)
-			if (PyRencoder && !this.cipher_out) {
+			if (false){ //PyRencoder && !this.cipher_out) {  // disable encoder for now
 				bdata = PyRencoder.encode(packet);
 				proto_flags = 1;
 			}

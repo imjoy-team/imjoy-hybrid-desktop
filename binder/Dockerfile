@@ -11,7 +11,7 @@ RUN apt update \
  && DISTRO="bionic" \
  && echo "deb https://deb.nodesource.com/node_14.x $DISTRO main" >> /etc/apt/sources.list.d/nodesource.list \
  && echo "deb-src https://deb.nodesource.com/node_14.x $DISTRO main" >> /etc/apt/sources.list.d/nodesource.list \
- && DEBIAN_FRONTEND=noninteractive apt install -y wget gnupg apt-transport-https software-properties-common xvfb x11-xserver-utils python3-pip lxterminal \
+ && DEBIAN_FRONTEND=noninteractive apt install -y wget gnupg apt-transport-https software-properties-common xvfb x11-xserver-utils xdg-utils python3-pip lxterminal \
 #   pulseaudio lxterminal \
  && pip3 install pyinotify \
  && wget --quiet -O - https://deb.nodesource.com/gpgkey/nodesource.gpg.key |  apt-key add - \
