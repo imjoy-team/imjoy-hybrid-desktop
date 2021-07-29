@@ -25,7 +25,7 @@ Fiji.app/ImageJ-linux64-stable --update add-update-site MoBIE https://sites.imag
 Fiji.app/ImageJ-linux64-stable --update update
 
 # Fix the launcher
-mv Fiji.app/ImageJ-linux64-stable Fiji.app/ImageJ-linux64
+cp Fiji.app/ImageJ-linux64-stable Fiji.app/ImageJ-linux64
 
 
 pushd ${HOME}/xpra_server
