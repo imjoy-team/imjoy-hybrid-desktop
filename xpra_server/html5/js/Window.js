@@ -147,6 +147,10 @@ function XpraWindow(client, canvas_state, wid, x, y, w, h, metadata, override_re
 		jQuery(this.div).draggable({ cancel: "canvas" });
 		jQuery(this.div).on("dragstart",function(ev,ui){
 			client.do_window_mouse_click(ev, me, false);
+			//fake a click on the root window,
+			//this helps some buggy Java applications close their popup menus
+			client.do_window_mouse_click(ev, null, true);
+			client.do_window_mouse_click(ev, null, false);
 			client.mouse_grabbed = true;
 			me.set_focus_cb(me);
 		});
@@ -489,7 +493,7 @@ XpraWindow.prototype.update_metadata = function(metadata, safe) {
  */
 XpraWindow.prototype.set_metadata_safe = function(metadata) {
 	if ("title" in metadata) {
-		this.title = metadata["title"];
+		this.title = Utilities.s(metadata["title"]);
 		const decodedTitle = decodeURIComponent(escape(this.title));
 		jQuery('#title' + this.wid).html(decodedTitle);
 		const trimmedTitle = Utilities.trimString(decodedTitle, 30);
@@ -499,7 +503,7 @@ XpraWindow.prototype.set_metadata_safe = function(metadata) {
 		this.has_alpha = metadata["has-alpha"];
 	}
 	if ("window-type" in metadata) {
-		this.windowtype = metadata["window-type"][0];
+		this.windowtype = Utilities.s(metadata["window-type"][0]);
 	}
 	if ("decorations" in metadata) {
 		this.decorations = metadata["decorations"];
@@ -554,7 +558,7 @@ XpraWindow.prototype.set_metadata_safe = function(metadata) {
 		if (wm_class) {
 			//add new wm-class:
 			for (let i = 0; i < wm_class.length; i++) {
-				const tclass = wm_class[i].replace(/[^0-9a-zA-Z]/g, '');
+				const tclass = Utilities.s(wm_class[i]).replace(/[^0-9a-zA-Z]/g, '');
 				if (tclass && !jQuery(this.div).hasClass(tclass)) {
 					jQuery(this.div).addClass("wmclass-"+tclass);
 				}

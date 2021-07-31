@@ -27,6 +27,7 @@
 		<script type="text/javascript" src="js/lib/jquery.ba-throttle-debounce.js"></script>
 		<script type="text/javascript" src="js/lib/jquery-transform-draggable.js"></script>
 
+		<script type="text/javascript" src="js/lib/rencode.js"></script>
 		<script type="text/javascript" src="js/lib/bencode.js"></script>
 		<script type="text/javascript" src="js/lib/zlib.js"></script>
 		<script type="text/javascript" src="js/lib/lz4.js"></script>
@@ -45,8 +46,6 @@
 
 		<script type="text/javascript" src="js/lib/FileSaver.js"></script>
 		<script type="text/javascript" src="js/lib/jszip.js"></script>
-
-		<script type="text/javascript" src="js/lib/pyrencoder.js"></script>
 
 		<script type="text/javascript" src="js/Keycodes.js"></script>
 		<script type="text/javascript" src="js/Protocol.js"></script>
@@ -717,6 +716,7 @@
 				const debug_main = getboolparam("debug_main", false);
 				if(!debug_main) {
 					client.callback_close = function(reason) {
+						clog("closing: ", reason);
 						if(submit) {
 							let message = "Connection closed (socket closed)";
 							if(reason) {
@@ -964,7 +964,7 @@
 					},
 				});
 				function onChange(input){
-					console.log("Input changed", input);
+					clog("Input changed", input);
 				}
 				function onKeyPress(button){
 					forward_key(true, button);
