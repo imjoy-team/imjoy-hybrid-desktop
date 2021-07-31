@@ -2,4 +2,13 @@
 set -e
 
 export PATH="${HOME}/.local/bin:${PATH}"
-exec "$@"
+
+SCRIPT_PATH=`dirname "$0"`
+bash ${SCRIPT_PATH}/dumpServerConfig.sh & 
+
+
+if printf '%s\n' "$@" | grep -q -P '^--NotebookApp.allow_origin='; then
+exec "$@" # for running with Binder
+else
+exec "$@" --NotebookApp.allow_origin='*' # for running with local repo2docker
+fi

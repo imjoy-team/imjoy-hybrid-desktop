@@ -1,0 +1,141 @@
+
+#imjoy-window-container{
+    height: 0px;
+}
+#imjoy-window-container > .imjoy-windows{
+    height: 0px;
+    min-height: 0px;
+}
+.dropdown:hover .dropdown-content{
+    left: 0;
+    margin-top: -10px;
+}
+.dropdown-btn {
+    padding: 0!important;
+}
+.dropdown-btn>img {
+    padding-top: 2px;
+    width: 25px;
+}
+.window {
+    min-height: 100px;
+    min-width: 100px;
+}
+.imjoy-windows>img{
+    display: none;
+}
+
+.lds-ellipsis {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    left: 50%;
+    z-index: 9999;
+    transform: translate(-50%, 0);
+}
+
+.lds-ellipsis div {
+    position: absolute;
+    top: 33px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #448aff;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.lds-ellipsis div:nth-child(1) {
+    left: 8px;
+    animation: lds-ellipsis1 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(2) {
+    left: 8px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(3) {
+    left: 32px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(4) {
+    left: 56px;
+    animation: lds-ellipsis3 0.6s infinite;
+}
+
+@keyframes lds-ellipsis1 {
+    0% {
+    transform: scale(0);
+    }
+
+    100% {
+    transform: scale(1);
+    }
+}
+
+@keyframes lds-ellipsis3 {
+    0% {
+    transform: scale(1);
+    }
+
+    100% {
+    transform: scale(0);
+    }
+}
+
+@keyframes lds-ellipsis2 {
+    0% {
+    transform: translate(0, 0);
+    }
+
+    100% {
+    transform: translate(24px, 0);
+    }
+}
+ul.social-set {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: auto;
+    width: auto;
+}
+ul.social-set li {
+    cursor: pointer;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+/* Font Awesome icons */
+a.sociali {
+    text-align: center;
+    font-size: 2em;
+    padding: 10px;
+    background: #555555;
+    color: #fff;
+    margin-right: 10px;
+    margin-bottom: 10px !important;
+    padding-bottom: 10px !important;
+}
+a.sociali:hover, a.sociali:focus {
+    background: #050505;
+}

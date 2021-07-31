@@ -10,6 +10,9 @@ def setup_server():
             '--daemon=no',
             ":200"
         ],
+        'environment': {
+            'XDG_MENU_PREFIX': 'gnome-'
+        },
         'timeout': 30,
         'launcher_entry': {
             "title": "Desktop",
