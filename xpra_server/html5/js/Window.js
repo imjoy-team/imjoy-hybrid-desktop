@@ -133,7 +133,7 @@ function XpraWindow(client, canvas_state, wid, x, y, w, h, metadata, override_re
 		// add a title bar to this window if we need to
 		// create header
 		jQuery(this.div).prepend('<div id="head' + String(wid) + '" class="windowhead"> '+
-				'<span class="windowicon"><img id="windowicon' + String(wid) + '" /></span> '+
+				'<span class="windowicon"><img class="windowicon" id="windowicon' + String(wid) + '" /></span> '+
 				'<span class="windowtitle" id="title' + String(wid) + '">' + this.title + '</span> '+
 				'<span class="windowbuttons"> '+
 				'<span id="minimize' + String(wid) + '"><img src="icons/minimize.png" /></span> '+
@@ -145,12 +145,16 @@ function XpraWindow(client, canvas_state, wid, x, y, w, h, metadata, override_re
 			jQuery(this.div).draggable({ transform: true });
 		}
 		jQuery(this.div).draggable({ cancel: "canvas" });
-		jQuery(this.div).on("dragstart",function(ev,ui){
-			client.do_window_mouse_click(ev, me, false);
+		function root_window_click(ev) {
 			//fake a click on the root window,
 			//this helps some buggy Java applications close their popup menus
 			client.do_window_mouse_click(ev, null, true);
 			client.do_window_mouse_click(ev, null, false);
+		}
+		jQuery("#head"+String(this.wid)).click(root_window_click);
+		jQuery(this.div).on("dragstart",function(ev,ui){
+			client.do_window_mouse_click(ev, me, false);
+			root_window_click(ev);
 			client.mouse_grabbed = true;
 			me.set_focus_cb(me);
 		});
@@ -1067,12 +1071,37 @@ XpraWindow.prototype.reset_cursor = function() {
 
 XpraWindow.prototype.set_cursor = function(encoding, w, h, xhot, yhot, img_data) {
 	if (encoding=="png") {
-		const cursor_url = "url('data:image/" + encoding + ";base64," + window.btoa(img_data) + "')";
-		const window_element = jQuery("#"+String(this.wid));
-		window_element.css("cursor", cursor_url+", default");
-		//CSS3 with hotspot:
-		window_element.css("cursor", cursor_url+" "+xhot+" "+yhot+", auto");
+	    if ((typeof img_data) === 'object' && img_data.constructor===Uint8Array) {
+			img_data = Utilities.Uint8ToString(img_data);
+		}
 		this.png_cursor_data = [w, h, xhot, yhot, img_data];
+		const window_element = jQuery("#"+String(this.wid));
+		const cursor_url = "data:image/" + encoding + ";base64," + window.btoa(img_data);
+		//j.src = "data:image/"+coding+";base64," + Utilities.ArrayBufferToBase64(img_data);
+		function set_cursor_url(url) {
+			const url_str = "url('"+url+"')";
+			window_element.css("cursor", url_str+", default");
+			//CSS3 with hotspot:
+			window_element.css("cursor", url_str+" "+xhot+" "+yhot+", auto");
+		}
+		if (window.devicePixelRatio && window.devicePixelRatio!=1) {
+			//scale it:
+			const tmp_img = new Image();
+			tmp_img.onload = function() {
+				console.log("loaded!");
+				const canvas = document.createElement('canvas');
+				const ctx = canvas.getContext('2d');
+				canvas.width = Math.round(w*window.devicePixelRatio);
+				canvas.height = Math.round(h*window.devicePixelRatio);
+				ctx.drawImage(this, 0, 0, canvas.width, canvas.height);
+				var scaled_cursor_url = canvas.toDataURL();
+				set_cursor_url(scaled_cursor_url);
+			};
+			tmp_img.src = cursor_url;
+		}
+		else {
+			set_cursor_url(cursor_url);
+		}
 	}
 };
 

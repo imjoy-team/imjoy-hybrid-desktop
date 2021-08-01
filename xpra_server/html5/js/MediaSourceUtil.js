@@ -251,8 +251,8 @@ const MediaSourceUtil = {
 
 		addSourceBufferEventDebugListeners : function(asb, element_type) {
 			function debug_buffer_event(event) {
-				// const msg = ""+element_type+" buffer "+event;
-				// console.debug(msg);
+				const msg = ""+element_type+" buffer "+event;
+				console.debug(msg);
 			}
 			asb.addEventListener('updatestart', function(e) { debug_buffer_event('updatestart'); });
 			asb.addEventListener('updateend', 	function(e) { debug_buffer_event('updateend'); });
