@@ -8,6 +8,7 @@ def setup_server():
             '--html=' + os.path.join(os.path.dirname(os.path.realpath(__file__)), 'html5'),
             '--start=lxterminal',
             '--daemon=no',
+            '--env=XPRA_ACK_TOLERANCE=550',
             ":200"
         ],
         'timeout': 30,
